@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    lidar_model.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Sun Mar 17 17:02:16 2024
+  * @date    Sun Mar 17 22:36:36 2024
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -42,7 +42,7 @@
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Sun Mar 17 17:02:16 2024"
+#define AI_TOOLS_DATE_TIME   "Sun Mar 17 22:36:36 2024"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
