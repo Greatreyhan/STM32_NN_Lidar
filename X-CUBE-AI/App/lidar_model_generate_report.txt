@@ -1,0 +1,164 @@
+Neural Network Tools for STM32 family v1.7.0 (stm.ai v8.1.0-19520)
+Created date          : 2024-03-17 17:02:16
+Parameters            : generate --name lidar_model -m C:/Users/greatreyhan/Downloads/ydlidargs2.tflite --type tflite --compression none --verbosity 1 --workspace C:\Users\GREATR~1\AppData\Local\Temp\mxAI_workspace37381486899380017076663359784177888 --output C:\Users\greatreyhan\.stm32cubemx\lidar_model_output --allocate-inputs --series stm32f4 --allocate-outputs
+
+Exec/report summary (generate)
+----------------------------------------------------------------------------------------------------------------
+model file         :   C:\Users\greatreyhan\Downloads\ydlidargs2.tflite                                         
+type               :   tflite                                                                                   
+c_name             :   lidar_model                                                                              
+compression        :   none                                                                                     
+options            :   allocate-inputs, allocate-outputs                                                        
+optimization       :   balanced                                                                                 
+target/series      :   stm32f4                                                                                  
+workspace dir      :   C:\Users\GREATR~1\AppData\Local\Temp\mxAI_workspace37381486899380017076663359784177888   
+output dir         :   C:\Users\greatreyhan\.stm32cubemx\lidar_model_output                                     
+model_fmt          :   float                                                                                    
+model_name         :   ydlidargs2                                                                               
+model_hash         :   bd8c017652d9ad68bcbd99836c365cc9                                                         
+params #           :   12,483 items (12.76 KiB)                                                                 
+----------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_dense_9_input0' (domain:activations/**default**)                        
+                   :   160 items, 640 B, ai_float, float, (1,160)                                               
+output 1/1         :   'nl_3' (domain:activations/**default**)                                                  
+                   :   3 items, 12 B, ai_float, float, (1,3)                                                    
+macc               :   12,624                                                                                   
+weights (ro)       :   49,932 B (48.76 KiB) (1 segment)                                                         
+activations (rw)   :   896 B (896 B) (1 segment) *                                                              
+ram (total)        :   896 B (896 B) = 896 + 0 + 0                                                              
+----------------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers can be used from the activations buffer
+
+Model name - ydlidargs2 ['serving_default_dense_9_input0'] ['nl_3']
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+m_id   layer (type,original)                                          oshape              param/size          macc                                   connected to   | c_size             c_macc             c_type                     
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+0      serving_default_dense_9_input0 (Input, )                       [b:1,c:160]                                                                                   | +41,216(+100.0%)   +10,368(+100.0%)   dense_of32/nl_of32[0, 1]   
+       sequential_3_dense_9_MatMul (Placeholder, )                    [h:64,h:64,c:160]   10,240/10,240                                                             | -10,240(-100.0%)                      
+       sequential_3_dense_9_BiasAdd_ReadVariableOp (Placeholder, )    [c:64]              64/256                                                                    | -256(-100.0%)                         
+       gemm_0 (Gemm, FULLY_CONNECTED)                                 [b:1,c:64]                            10,304                 serving_default_dense_9_input0   |                    -10,304(-100.0%)   
+                                                                                                                                      sequential_3_dense_9_MatMul   | 
+                                                                                                                      sequential_3_dense_9_BiasAdd_ReadVariableOp   | 
+       nl_0_nl (Nonlinearity, FULLY_CONNECTED)                        [b:1,c:64]                                64                                         gemm_0   |                    -64(-100.0%)       
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+1      sequential_3_dense_10_MatMul (Placeholder, )                   [h:32,h:32,c:64]    2,048/2,048                                                               | +6,272(+306.2%)    +2,112(+100.0%)    dense_of32/nl_of32[2, 3]   
+       sequential_3_dense_10_BiasAdd_ReadVariableOp (Placeholder, )   [c:32]              32/128                                                                    | -128(-100.0%)                         
+       gemm_1 (Gemm, FULLY_CONNECTED)                                 [b:1,c:32]                             2,080                                        nl_0_nl   |                    -2,080(-100.0%)    
+                                                                                                                                     sequential_3_dense_10_MatMul   | 
+                                                                                                                     sequential_3_dense_10_BiasAdd_ReadVariableOp   | 
+       nl_1_nl (Nonlinearity, FULLY_CONNECTED)                        [b:1,c:32]                                32                                         gemm_1   |                    -32(-100.0%)       
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+2      sequential_3_dense_11_MatMul (Placeholder, )                   [h:3,h:3,c:32]      96/384                                                                    | +12(+3.1%)         +99(+100.0%)       dense_of32[4]              
+       sequential_3_dense_11_BiasAdd_ReadVariableOp (Placeholder, )   [c:3]               3/12                                                                      | -12(-100.0%)                          
+       gemm_2 (Gemm, FULLY_CONNECTED)                                 [b:1,c:3]                                 99                                        nl_1_nl   |                    -99(-100.0%)       
+                                                                                                                                     sequential_3_dense_11_MatMul   | 
+                                                                                                                     sequential_3_dense_11_BiasAdd_ReadVariableOp   | 
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+3      nl_3 (Nonlinearity, SOFTMAX)                                   [b:1,c:3]                                 45                                         gemm_2   |                                       nl_of32[o][5]              
+------ -------------------------------------------------------------- ------------------- --------------- -------- ---------------------------------------------- --- ------------------ ------------------ -------------------------- 
+model/c-model: macc=12,624/12,624  weights=13,068/49,932 +36,864(+282.1%) activations=--/896 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : ydlidargs2
+c-name                : lidar_model
+c-node #              : 6
+c-array #             : 13
+activations size      : 896 (1 segment)
+weights size          : 49932 (1 segment)
+macc                  : 12624
+inputs                : ['serving_default_dense_9_input0_output']
+outputs               : ['nl_3_output']
+
+C-Arrays (13)
+------ --------------------------------------- ------------- ------------------------- ------------- --------- --------- 
+c_id   name (*_array)                          item/size     domain/mem-pool           c-type        fmt       comment   
+------ --------------------------------------- ------------- ------------------------- ------------- --------- --------- 
+0      gemm_2_weights                          96/384        weights/weights           const float   float32             
+1      gemm_2_bias                             3/12          weights/weights           const float   float32             
+2      serving_default_dense_9_input0_output   160/640       activations/**default**   float         float32   /input    
+3      gemm_0_output                           64/256        activations/**default**   float         float32             
+4      nl_0_nl_output                          64/256        activations/**default**   float         float32             
+5      gemm_1_output                           32/128        activations/**default**   float         float32             
+6      nl_1_nl_output                          32/128        activations/**default**   float         float32             
+7      gemm_2_output                           3/12          activations/**default**   float         float32             
+8      nl_3_output                             3/12          activations/**default**   float         float32   /output   
+9      gemm_0_weights                          10240/40960   weights/weights           const float   float32             
+10     gemm_0_bias                             64/256        weights/weights           const float   float32             
+11     gemm_1_weights                          2048/8192     weights/weights           const float   float32             
+12     gemm_1_bias                             32/128        weights/weights           const float   float32             
+------ --------------------------------------- ------------- ------------------------- ------------- --------- --------- 
+
+C-Layers (6)
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+c_id   name (*_layer)   id   layer_type   macc    rom     tensors                                    shape (array id)   
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+0      gemm_0           0    dense        10304   41216   I: serving_default_dense_9_input0_output   (1,160) (2)        
+                                                          W: gemm_0_weights                          (160,64) (9)       
+                                                          W: gemm_0_bias                             (64,) (10)         
+                                                          O: gemm_0_output                           (1,64) (3)         
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+1      nl_0_nl          0    nl           64      0       I: gemm_0_output                           (1,64) (3)         
+                                                          O: nl_0_nl_output                          (1,64) (4)         
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+2      gemm_1           1    dense        2080    8320    I: nl_0_nl_output                          (1,64) (4)         
+                                                          W: gemm_1_weights                          (64,32) (11)       
+                                                          W: gemm_1_bias                             (32,) (12)         
+                                                          O: gemm_1_output                           (1,32) (5)         
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+3      nl_1_nl          1    nl           32      0       I: gemm_1_output                           (1,32) (5)         
+                                                          O: nl_1_nl_output                          (1,32) (6)         
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+4      gemm_2           2    dense        99      396     I: nl_1_nl_output                          (1,32) (6)         
+                                                          W: gemm_2_weights                          (32,3) (0)         
+                                                          W: gemm_2_bias                             (3,) (1)           
+                                                          O: gemm_2_output                           (1,3) (7)          
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+5      nl_3             3    nl           45      0       I: gemm_2_output                           (1,3) (7)          
+                                                          O: nl_3_output                             (1,3) (8)          
+------ ---------------- ---- ------------ ------- ------- ------------------------------------------ ------------------ 
+
+
+
+Number of operations per c-layer
+------- ------ ---------------- -------- -------------- -------- ---------- 
+c_id    m_id   name (type)           #op           type   #param   sparsity 
+------- ------ ---------------- -------- -------------- -------- ---------- 
+0       0      gemm_0 (dense)     10,304   smul_f32_f32   10,304     0.0039 
+1       0      nl_0_nl (nl)           64     op_f32_f32          
+2       1      gemm_1 (dense)      2,080   smul_f32_f32    2,080     0.0062 
+3       1      nl_1_nl (nl)           32     op_f32_f32          
+4       2      gemm_2 (dense)         99   smul_f32_f32       99     0.0000 
+5       3      nl_3 (nl)              45     op_f32_f32          
+------- ------ ---------------- -------- -------------- -------- ---------- 
+total                             12,624                  12,483     0.0042 
+
+Number of operation types
+---------------- -------- ----------- 
+operation type          #           % 
+---------------- -------- ----------- 
+smul_f32_f32       12,483       98.9% 
+op_f32_f32            141        1.1% 
+
+Complexity report (model)
+------ -------------------------------- ------------------------- ------------------------- -------- 
+m_id   name                             c_macc                    c_rom                     c_id     
+------ -------------------------------- ------------------------- ------------------------- -------- 
+0      serving_default_dense_9_input0   ||||||||||||||||  82.1%   ||||||||||||||||  82.5%   [0, 1]   
+1      sequential_3_dense_10_MatMul     ||||              16.7%   ||||              16.7%   [2, 3]   
+2      sequential_3_dense_11_MatMul     |                  0.8%   |                  0.8%   [4]      
+3      nl_3                             |                  0.4%   |                  0.0%   [5]      
+------ -------------------------------- ------------------------- ------------------------- -------- 
+macc=12,624 weights=49,932 act=896 ram_io=0
+
+Generated files (7)
+-------------------------------------------------------------------------------- 
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model_config.h        
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model.h               
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model.c               
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model_data_params.h   
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model_data_params.c   
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model_data.h          
+C:\Users\greatreyhan\.stm32cubemx\lidar_model_output\lidar_model_data.c          
