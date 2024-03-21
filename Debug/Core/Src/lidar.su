@@ -1,0 +1,5 @@
+../Core/Src/lidar.c:12:6:lidar_init	16	static
+../Core/Src/lidar.c:16:9:lidar_get_dev_addr	32	static
+../Core/Src/lidar.c:31:9:lidar_get_dev_param	32	static
+../Core/Src/lidar.c:52:9:lidar_dev_scan	64	static
+../Core/Src/lidar.c:136:9:lidar_dev_stop_scan	32	static
